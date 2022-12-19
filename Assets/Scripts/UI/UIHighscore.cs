@@ -28,28 +28,44 @@ public class UIHighscore : MonoBehaviour
 
     public void CreateListPlayerToScreen()
     {
-        //Get data from directory and assign it to model
-        var outputJson = File.ReadAllText(Application.persistentDataPath + "/dataUser.json");
-        var loadedUserData = JsonConvert.DeserializeObject<ListModel>(outputJson);
-
-        //Sort list players by score 
-        var orderByResut = from n in loadedUserData.PlayerModel
-                           orderby n.score descending
-                           select n;
-        var listPlayer = orderByResut.ToArray();
-
-        //Check length array
-        int listCount = 5;
-        if (listPlayer.Count() < 5) { listCount = listPlayer.Count(); }
-
-        //Create list player
-        for (int i = 0; i < listCount; i++)
+        try
         {
-            listPlayerScore.text = listPlayer[i].score.ToString();
-            listPlayerName.text = listPlayer[i].name;
+            //Get data from directory and assign it to model
+            var outputJson = File.ReadAllText(Application.persistentDataPath + "/dataUser.json");
+            var loadedUserData = JsonConvert.DeserializeObject<ListModel>(outputJson);
 
-            Instantiate(player, transform.position - new Vector3(0, 50 * i, 0), transform.rotation, parent);
+            //Sort list players by score 
+            var orderByResut = from n in loadedUserData.PlayerModel
+                               orderby n.score descending
+                               select n;
+            var listPlayer = orderByResut.ToArray();
+
+            //Check length array
+            int listCount = 5;
+            if (listPlayer.Count() < 5) { listCount = listPlayer.Count(); }
+
+            //Create list player
+            for (int i = 0; i < listCount; i++)
+            {
+                listPlayerScore.text = listPlayer[i].score.ToString();
+                listPlayerName.text = listPlayer[i].name;
+
+                Instantiate(player, transform.position - new Vector3(0, 50 * i, 0), transform.rotation, parent);
+            }
         }
+        catch
+        {
+            //Create empty data when there is no file
+            this.CreateEmptyFile();
+        }
+    }
+     public void CreateEmptyFile()
+    {
+        ListModel __listModel = new();
+        var serializer = new JsonSerializer();
+        using var sw = new StreamWriter(Application.persistentDataPath + "/dataUser.json");
+        using JsonWriter writer = new JsonTextWriter(sw);
+        serializer.Serialize(writer, __listModel);
     }
     private void DestroyOj()
     {
