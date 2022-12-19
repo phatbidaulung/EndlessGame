@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
             Instantiate(Resources.Load<GameObject>("Popups/InputHighscore") as GameObject);
             
         }
+        Instantiate(Resources.Load<GameObject>("Popups/PlayerAgain") as GameObject);
+        
     }
 
     public void StopGame()
