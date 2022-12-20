@@ -9,14 +9,20 @@ public class AnimationController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_playerController.isPlane)
+        if ((Input.GetKey(KeyCode.DownArrow) && (_playerController.isPlane)))
         {
-            player.GetComponent<Animator>().Play("Run");
+            player.GetComponent<Animator>().Play("Slide");
         }
-
-        if (!_playerController.isPlane)
+        else
         {
-            player.GetComponent<Animator>().Play("jump");
+            if (_playerController.isPlane)
+            {
+                player.GetComponent<Animator>().Play("Run");
+            }
+            if (!_playerController.isPlane)
+            {
+                player.GetComponent<Animator>().Play("jump");
+            }
         }
     }
 }

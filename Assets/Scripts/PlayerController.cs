@@ -5,16 +5,27 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
-    public float strength = 500f;
+    [SerializeField] private GameObject headCollision;
+    private  float strength = 23f;
     public bool isPlane;
 
     private void Update()
     {
-
-        if ((Input.GetKeyDown(KeyCode.Space)) && (isPlane))
+        
+        if (((Input.GetKeyDown(KeyCode.Space)) && (isPlane)) || ((Input.GetKeyDown(KeyCode.UpArrow)) && (isPlane)))
         {
             rb.velocity = new Vector2(rb.velocity.x, strength);
         }
+        if ((Input.GetKey(KeyCode.DownArrow)) && (isPlane))
+        {
+            Physics2D.gravity = new Vector2(0f, -15f);
+            headCollision.SetActive(false);
+        }
+        else
+        {
+            headCollision.SetActive(true);
+        }
+        Physics2D.gravity = new Vector2(0f, -9.8f);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
