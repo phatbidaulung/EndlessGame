@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, strength);
         }
-        if ((Input.GetKey(KeyCode.DownArrow)) && (isPlane))
+        if (((Input.GetKey(KeyCode.DownArrow)) && (isPlane)) || ((Input.GetKey(KeyCode.LeftShift)) && (isPlane)))
         {
             Physics2D.gravity = new Vector2(0f, -15f);
             headCollision.SetActive(false);

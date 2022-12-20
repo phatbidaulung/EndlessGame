@@ -9,7 +9,7 @@ public class AnimationController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if ((Input.GetKey(KeyCode.DownArrow) && (_playerController.isPlane)))
+        if (((Input.GetKey(KeyCode.DownArrow) && (_playerController.isPlane)) || ((Input.GetKey(KeyCode.LeftShift)) && (_playerController.isPlane))))
         {
             player.GetComponent<Animator>().Play("Slide");
         }
