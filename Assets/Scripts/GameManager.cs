@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     private float timeNow;
+    private float timeIncrease;
+    private int levelSpeed = 1;
 
     private void Awake()
     {
@@ -53,8 +55,6 @@ public class GameManager : MonoBehaviour
 
     public int TimeIs() => (int)timeNow;
 
-        float timeIncrease;
-        int levelSpeed;
     public void IncreaseSpeedEnemy()
     {
         int variableTime = 10;

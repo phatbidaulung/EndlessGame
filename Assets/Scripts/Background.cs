@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Background : MonoBehaviour
 {
-    [SerializeField] private float Speed = 0.1f;
+    [SerializeField] private float speed = 0.1f;
     private float startingPosition = 39.35f;
 
     private void FixedUpdate()
     {
         BackgroundMove();
         ResetLocationBackground();
+        ChangeLevelSpeed();
     }
 
     /// <summary>
@@ -18,7 +19,7 @@ public class Background : MonoBehaviour
     /// </summary>
     private void BackgroundMove()
     {
-        this.transform.position -= new Vector3(this.Speed, 0, 0);
+        this.transform.position -= new Vector3(this.speed, 0, 0);
     }
 
     /// <summary>
@@ -34,5 +35,10 @@ public class Background : MonoBehaviour
     private void NewLocation()
     {
         this.transform.position = new Vector3(this.startingPosition, this.transform.position.y, this.transform.position.z);
+    }
+
+    private void ChangeLevelSpeed()
+    {
+        this.speed = GameManager.Instance.ReturnLevelSpeed() * 0.1f;
     }
 }
